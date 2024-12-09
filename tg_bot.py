@@ -43,5 +43,15 @@ async def handle_message(message: types.Message):
     elif 'tanlangan_tovar' in user_data[user_id]['keyboard']:
         await select_item(message)
 
-
-
+@dp.message(Command("start"))
+async def start(message: types.Message):
+    user_id = message.from_user.id
+    user_data[user_id] = {}
+    button = [
+        [types.KeyboardButton(text='Share Contact', request_contact=True)]
+    ]
+    keyboard = types.ReplyKeyboardMarkup(keyboard=button, one_time_keyboard=True, resize_keyboard=True)
+    await message.answer(f"Assalomu alaykum! Les Ailes yetkazib berish"
+                         f"xizmatiga xush kelibsiz!\n"
+                         f"Iltimos telefon raqamingizni kiriting:", reply_markup=keyboard)
+    print(user_data)
